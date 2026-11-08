@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Поисковые теги</title>
+  <style>
+    body{font:16px system-ui,sans-serif;color:#202532;background:#f4f6fa;margin:0;padding:3rem 1rem}
+    main{max-width:680px;margin:auto;background:white;padding:2rem;border-radius:16px;box-shadow:0 8px 32px #18233a12}
+    h1{font-size:1.6rem;margin-top:0}form{display:flex;gap:.6rem}input{flex:1;min-width:0;padding:.8rem 1rem;border:1px solid #cbd2df;border-radius:9px;font:inherit}
+    button{padding:.8rem 1.2rem;background:#315ee7;color:white;border:0;border-radius:9px;font:inherit;cursor:pointer}.tags{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.4rem}
+    .tag{padding:.55rem .85rem;background:#edf2ff;border-radius:999px;color:#2449bd;text-decoration:none}.muted{color:#667085}
+  </style>
+</head>
+<body><main>
+  <h1>Поисковые теги</h1>
+  <form action="/" method="get"><input name="q" value="{{.Query}}" placeholder="Например, платье" required><button>Найти</button></form>
+  {{if .Searched}}
+    {{if .Tags}}<div class="tags">{{range .Tags}}<a class="tag" href="/?q={{.Tag}}">{{.Tag}}</a>{{end}}</div>
+    {{else}}<p class="muted">Для этого запроса пока нет тегов</p>{{end}}
+  {{end}}
+</main></body></html>

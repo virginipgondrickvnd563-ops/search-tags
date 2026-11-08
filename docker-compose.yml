@@ -1,0 +1,29 @@
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.8
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+      - ./data:/var/lib/clickhouse/user_files
+      - ./sql:/docker-entrypoint-initdb.d:ro
+    environment:
+      CLICKHOUSE_DB: search
+      CLICKHOUSE_USER: app
+      CLICKHOUSE_PASSWORD: app
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: "1"
+  web:
+    build: .
+    depends_on:
+      - clickhouse
+    ports:
+      - "8080:8080"
+    environment:
+      CLICKHOUSE_ADDR: clickhouse:9000
+      CLICKHOUSE_USER: app
+      CLICKHOUSE_PASSWORD: app
+      CLICKHOUSE_DATABASE: search
+      HTTP_ADDR: :8080
+volumes:
+  clickhouse-data:
