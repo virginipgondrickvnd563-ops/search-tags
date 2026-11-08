@@ -5,8 +5,8 @@ SELECT count() AS over_ten FROM (SELECT query FROM search.tags GROUP BY query HA
 
 -- Compare normalized API lookups: both parameter values should return identical rows.
 SELECT tag, users, rank FROM search.tags
-WHERE query = arrayStringConcat(arrayFilter(x -> x != '', splitByChar(' ', lowerUTF8(trimBoth(replaceRegexpAll('Платье ', '\\s+', ' '))))), ' ')
+WHERE query = arrayStringConcat(arrayFilter(x -> x != '', splitByChar(' ', lowerUTF8(trimBoth(replaceRegexpAll('Платье ', '[\\t\\n\\v\\f\\r \\x{00a0}]+', ' '))))), ' ')
 ORDER BY rank;
 SELECT tag, users, rank FROM search.tags
-WHERE query = arrayStringConcat(arrayFilter(x -> x != '', splitByChar(' ', lowerUTF8(trimBoth(replaceRegexpAll('платье', '\\s+', ' '))))), ' ')
+WHERE query = arrayStringConcat(arrayFilter(x -> x != '', splitByChar(' ', lowerUTF8(trimBoth(replaceRegexpAll('платье', '[\\t\\n\\v\\f\\r \\x{00a0}]+', ' '))))), ' ')
 ORDER BY rank;

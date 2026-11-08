@@ -25,5 +25,6 @@ services:
       CLICKHOUSE_PASSWORD: app
       CLICKHOUSE_DATABASE: search
       HTTP_ADDR: :8080
+      DB_TIMEOUT: 3s
 volumes:
   clickhouse-data:

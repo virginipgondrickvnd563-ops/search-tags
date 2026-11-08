@@ -17,3 +17,14 @@ CREATE TABLE IF NOT EXISTS search.tags
 )
 ENGINE = MergeTree
 ORDER BY (query, rank);
+
+-- Staging table for atomic tag refreshes. It has the same schema as search.tags.
+CREATE TABLE IF NOT EXISTS search.tags_next
+(
+    query String,
+    tag String,
+    users UInt64,
+    rank UInt8
+)
+ENGINE = MergeTree
+ORDER BY (query, rank);
